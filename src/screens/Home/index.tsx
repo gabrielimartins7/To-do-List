@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 import { Button } from '../../components/Button';
 import { Item } from '../../components/Item';
 
@@ -27,11 +28,13 @@ export default function Home() {
         
         <List>
             <Title>Itens listados</Title>
-            {
-                meusItens.map(list => (
-                   <Item list={list}/> 
-                ))
-            }
+            <FlatList
+              data={meusItens}
+              keyExtractor={item => item}
+              renderItem={({ item }) => (
+                <Item list={item}/>
+              )}
+            />
         </List>
       </Form>
     </Container>
