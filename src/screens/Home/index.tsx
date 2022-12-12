@@ -5,12 +5,27 @@ import { Item } from '../../components/Item';
 
 import { Container, Header, Title, Form, InputForm, List, TitleNav } from './styles';
 
+interface ItemData {
+  id: string;
+  name: string;
+}
+
 export default function Home() {
   const [item, setItem] = useState('');
-  const [meusItens, setMeusItens] = useState([]);
+  const [meusItens, setMeusItens] = useState<ItemData[]>([]);
 
   function handleAddItem(){
-    setMeusItens([...meusItens, item]);
+    const data = {
+      id: String(new Date().getTime()),
+      name: item
+    }
+    setMeusItens([...meusItens, data]);
+  }
+
+  function handleRemoveItem(id: string){
+    setMeusItens(oldState => oldState.filter(
+      item => item.id !== id
+    ));
   }
 
   return (
@@ -24,15 +39,21 @@ export default function Home() {
             placeholderTextColor="#555"
             onChangeText={setItem}
         />
-        <Button onPress={handleAddItem} />
+        <Button 
+          onPress={handleAddItem}
+          activeOpacity={0.7}
+        />
         
         <List>
             <Title>Itens listados</Title>
             <FlatList
               data={meusItens}
-              keyExtractor={item => item}
+              keyExtractor={item => item.id}
               renderItem={({ item }) => (
-                <Item list={item}/>
+                <Item 
+                  list={item.name}
+                  onPress={() => handleRemoveItem(item.id)}
+                />
               )}
             />
         </List>

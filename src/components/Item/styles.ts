@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const ItemList = styled.View`
+export const ItemList = styled.TouchableOpacity`
     background-color: #1f1e25;
     border-radius: 50px;
     align-items: center;
