@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Button } from '../../components/Button';
+import { Item } from '../../components/Item';
 
-import { Container, Header, Title, Form, InputForm, ButtonAdd, List, ItemList, Item } from './styles';
+import { Container, Header, Title, Form, InputForm, List, TitleNav } from './styles';
 
 export default function Home() {
   const [item, setItem] = useState('');
@@ -13,7 +15,7 @@ export default function Home() {
   return (
     <Container>
       <Header>
-        <Title>Lista</Title>
+        <TitleNav>Lista</TitleNav>
       </Header>
       <Form>
         <InputForm
@@ -21,16 +23,13 @@ export default function Home() {
             placeholderTextColor="#555"
             onChangeText={setItem}
         />
-        <ButtonAdd onPress={handleAddItem}>
-            <Title>Adicionar item</Title>
-        </ButtonAdd>
+        <Button onPress={handleAddItem} />
+        
         <List>
             <Title>Itens listados</Title>
             {
                 meusItens.map(list => (
-                    <ItemList key={list}>
-                        <Item>{list}</Item>
-                    </ItemList>
+                   <Item list={list}/> 
                 ))
             }
         </List>
